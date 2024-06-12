@@ -9,7 +9,9 @@ return {
       colorscheme = "gruvbox",
     },
   },
-
+  {
+    "mustache/vim-mustache-handlebars",
+  },
   {
     "nvim-lua/lsp-status.nvim",
     config = function()
