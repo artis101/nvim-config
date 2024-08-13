@@ -108,4 +108,7 @@ return {
       -- configuration goes here
     },
   },
+  {
+    "vuki656/package-info.nvim",
+  },
 }
