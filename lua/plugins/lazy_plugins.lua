@@ -1,15 +1,16 @@
 return {
-  { "ellisonleao/gruvbox.nvim" },
-
+  -- Colorscheme
+  {
+    "ellisonleao/gruvbox.nvim",
+  },
   {
     "LazyVim/LazyVim",
     opts = {
       colorscheme = "gruvbox",
     },
   },
-  {
-    "mustache/vim-mustache-handlebars",
-  },
+
+  -- LSP and completion
   {
     "nvim-lua/lsp-status.nvim",
     config = function()
@@ -32,7 +33,6 @@ return {
       },
     },
   },
-  -- add any tools you want to have installed below
   {
     "williamboman/mason.nvim",
     opts = {
@@ -44,8 +44,6 @@ return {
       },
     },
   },
-
-  -- Use <tab> for completion and snippets (supertab)
   {
     "hrsh7th/nvim-cmp",
     dependencies = {
@@ -89,26 +87,31 @@ return {
       })
     end,
   },
+
+  -- File type specific plugins
+  {
+    "mustache/vim-mustache-handlebars",
+  },
+
+  -- Development tools
   {
     "kawre/leetcode.nvim",
     build = ":TSUpdate html",
     dependencies = {
       "nvim-telescope/telescope.nvim",
-      "nvim-lua/plenary.nvim", -- required by telescope
+      "nvim-lua/plenary.nvim",
       "MunifTanjim/nui.nvim",
-
-      -- optional
       "nvim-treesitter/nvim-treesitter",
       "rcarriga/nvim-notify",
       "nvim-tree/nvim-web-devicons",
     },
-    opts = {
-      -- configuration goes here
-    },
+    opts = {},
   },
   {
     "vuki656/package-info.nvim",
   },
+
+  -- Image handling
   {
     "3rd/image.nvim",
     config = function()
@@ -121,7 +124,7 @@ return {
             clear_in_insert_mode = false,
             download_remote_images = true,
             only_render_image_at_cursor = false,
-            filetypes = { "markdown", "vimwiki" }, -- markdown extensions (ie. quarto) can go here
+            filetypes = { "markdown", "vimwiki" },
           },
           neorg = {
             enabled = true,
@@ -130,62 +133,49 @@ return {
             only_render_image_at_cursor = false,
             filetypes = { "norg" },
           },
-          html = {
-            enabled = false,
-          },
-          css = {
-            enabled = false,
-          },
+          html = { enabled = false },
+          css = { enabled = false },
         },
         max_width = nil,
         max_height = nil,
         max_width_window_percentage = nil,
         max_height_window_percentage = 50,
-        window_overlap_clear_enabled = false, -- toggles images when windows are overlapped
+        window_overlap_clear_enabled = false,
         window_overlap_clear_ft_ignore = { "cmp_menu", "cmp_docs", "" },
-        editor_only_render_when_focused = false, -- auto show/hide images when the editor gains/looses focus
-        tmux_show_only_in_active_window = false, -- auto show/hide images in the correct Tmux window (needs visual-activity off)
-        hijack_file_patterns = { "*.png", "*.jpg", "*.jpeg", "*.gif", "*.webp", "*.avif" }, -- render image files as images when opened
+        editor_only_render_when_focused = false,
+        tmux_show_only_in_active_window = false,
+        hijack_file_patterns = { "*.png", "*.jpg", "*.jpeg", "*.gif", "*.webp", "*.avif" },
       })
     end,
   },
+
+  -- Avante and Markdown rendering
   {
     "yetone/avante.nvim",
     event = "VeryLazy",
     lazy = false,
-    version = false, -- set this if you want to always pull the latest change
-    opts = {
-      -- add any opts here
-    },
-    -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
+    version = false,
+    opts = {},
     build = "make",
-    -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
     dependencies = {
       "stevearc/dressing.nvim",
       "nvim-lua/plenary.nvim",
       "MunifTanjim/nui.nvim",
-      --- The below dependencies are optional,
-      "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
-      "zbirenbaum/copilot.lua", -- for providers='copilot'
+      "nvim-tree/nvim-web-devicons",
+      "zbirenbaum/copilot.lua",
       {
-        -- support for image pasting
         "HakonHarnes/img-clip.nvim",
         event = "VeryLazy",
         opts = {
-          -- recommended settings
           default = {
             embed_image_as_base64 = false,
             prompt_for_file_name = false,
-            drag_and_drop = {
-              insert_mode = true,
-            },
-            -- required for Windows users
+            drag_and_drop = { insert_mode = true },
             use_absolute_path = true,
           },
         },
       },
       {
-        -- Make sure to set this up properly if you have lazy=true
         "MeanderingProgrammer/render-markdown.nvim",
         opts = {
           file_types = { "markdown", "Avante" },
