@@ -25,7 +25,10 @@ return {
   },
   {
     "neovim/nvim-lspconfig",
+    ---@class PluginLspOpts
     opts = {
+      ---@type lspconfig.options
+      ---@type table<string, fun(server:string, opts:_.lspconfig.options):boolean?>
       setup = {
         rust_analyzer = function()
           return true
