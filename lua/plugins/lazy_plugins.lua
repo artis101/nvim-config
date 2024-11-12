@@ -9,6 +9,17 @@ return {
       colorscheme = "gruvbox",
     },
   },
+  {
+    "williamboman/mason.nvim",
+    opts = {
+      ensure_installed = {
+        "stylua",
+        "shellcheck",
+        "shfmt",
+        "flake8",
+      },
+    },
+  },
 
   -- LSP and completion
   {
@@ -25,25 +36,11 @@ return {
   },
   {
     "neovim/nvim-lspconfig",
-    ---@class PluginLspOpts
     opts = {
-      ---@type lspconfig.options
-      ---@type table<string, fun(server:string, opts:_.lspconfig.options):boolean?>
       setup = {
         rust_analyzer = function()
           return true
         end,
-      },
-    },
-  },
-  {
-    "williamboman/mason.nvim",
-    opts = {
-      ensure_installed = {
-        "stylua",
-        "shellcheck",
-        "shfmt",
-        "flake8",
       },
     },
   },
@@ -96,89 +93,56 @@ return {
     "mustache/vim-mustache-handlebars",
   },
 
-  -- Development tools
+  -- node package.json and yarn.lock
   {
-    "kawre/leetcode.nvim",
-    build = ":TSUpdate html",
-    dependencies = {
-      "nvim-telescope/telescope.nvim",
-      "nvim-lua/plenary.nvim",
-      "MunifTanjim/nui.nvim",
-      "nvim-treesitter/nvim-treesitter",
-      "rcarriga/nvim-notify",
-      "nvim-tree/nvim-web-devicons",
-    },
-    opts = {},
+    "moll/vim-node",
   },
   {
     "vuki656/package-info.nvim",
   },
 
-  -- Image handling
-  {
-    "3rd/image.nvim",
-    config = function()
-      require("image").setup({
-        backend = "kitty",
-        kitty_method = "normal",
-        integrations = {
-          markdown = {
-            enabled = true,
-            clear_in_insert_mode = false,
-            download_remote_images = true,
-            only_render_image_at_cursor = false,
-            filetypes = { "markdown", "vimwiki" },
-          },
-          neorg = {
-            enabled = true,
-            clear_in_insert_mode = false,
-            download_remote_images = true,
-            only_render_image_at_cursor = false,
-            filetypes = { "norg" },
-          },
-          html = { enabled = false },
-          css = { enabled = false },
-        },
-        max_width = nil,
-        max_height = nil,
-        max_width_window_percentage = nil,
-        max_height_window_percentage = 50,
-        window_overlap_clear_enabled = false,
-        window_overlap_clear_ft_ignore = { "cmp_menu", "cmp_docs", "" },
-        editor_only_render_when_focused = false,
-        tmux_show_only_in_active_window = false,
-        hijack_file_patterns = { "*.png", "*.jpg", "*.jpeg", "*.gif", "*.webp", "*.avif" },
-      })
-    end,
-  },
+  -- Go for that one time I made a contribution to arduino-language-server
+  { "fatih/vim-go" },
 
-  -- Avante and Markdown rendering
+  -- AI
   {
     "yetone/avante.nvim",
     event = "VeryLazy",
     lazy = false,
-    version = false,
-    opts = {},
+    version = false, -- set this if you want to always pull the latest change
+    opts = {
+      -- add any opts here
+    },
+    -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
     build = "make",
+    -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
     dependencies = {
+      "nvim-treesitter/nvim-treesitter",
       "stevearc/dressing.nvim",
       "nvim-lua/plenary.nvim",
       "MunifTanjim/nui.nvim",
-      "nvim-tree/nvim-web-devicons",
-      "zbirenbaum/copilot.lua",
+      --- The below dependencies are optional,
+      "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
+      "zbirenbaum/copilot.lua", -- for providers='copilot'
       {
+        -- support for image pasting
         "HakonHarnes/img-clip.nvim",
         event = "VeryLazy",
         opts = {
+          -- recommended settings
           default = {
             embed_image_as_base64 = false,
             prompt_for_file_name = false,
-            drag_and_drop = { insert_mode = true },
+            drag_and_drop = {
+              insert_mode = true,
+            },
+            -- required for Windows users
             use_absolute_path = true,
           },
         },
       },
       {
+        -- Make sure to set this up properly if you have lazy=true
         "MeanderingProgrammer/render-markdown.nvim",
         opts = {
           file_types = { "markdown", "Avante" },
@@ -187,11 +151,12 @@ return {
       },
     },
   },
+  -- Ricing, need to have imagemagick installed
   {
-    "MeanderingProgrammer/render-markdown.nvim",
+    "3rd/image.nvim",
+    build = false, -- so that it doesn't build the rock https://github.com/3rd/image.nvim/issues/91#issuecomment-2453430239
     opts = {
-      file_types = { "markdown", "Avante" },
+      processor = "magick_cli",
     },
-    ft = { "markdown", "Avante" },
   },
 }
