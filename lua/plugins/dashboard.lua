@@ -16,8 +16,9 @@ return {
       },
       sections = {
         { section = "header" },
-        { section = "keys", gap = 1, padding = 1 },
-        { section = "startup" },
+        { section = "keys", padding = 1 },
+        { icon = " ", title = "Recent Files", section = "recent_files", padding = 1 },
+        { icon = " ", title = "Projects", section = "projects", padding = 1 },
         {
           section = "terminal",
           cmd = "krabby random --no-title; sleep .1",
@@ -26,6 +27,7 @@ return {
           indent = 4,
           height = 30,
         },
+        { section = "startup", pane = 2, padding = 1 },
       },
     },
   },
