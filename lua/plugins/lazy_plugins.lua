@@ -72,7 +72,9 @@ return {
         model = "deepseek-chat",
         timeout = 30000, -- Timeout in milliseconds
         temperature = 0,
-        max_tokens = 4096,
+        -- Default context window size is 4096 tokens
+        -- 8192 is the maximum Deepseek supports
+        max_tokens = 8192,
         ["local"] = false,
       },
     },
