@@ -122,4 +122,6 @@ return {
       processor = "magick_cli",
     },
   },
+  -- git diffview
+  { "sindrets/diffview.nvim" },
 }
